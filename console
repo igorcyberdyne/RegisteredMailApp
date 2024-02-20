@@ -1,0 +1,64 @@
+#!/usr/bin/env php
+<?php
+
+use RegisteredMailApp\Command\CreateUserCommand;
+use RegisteredMailApp\Command\UserAttachmentCommand;
+use RegisteredMailApp\Command\UserInfoCommand;
+use RegisteredMailApp\Command\UserListCommand;
+use RegisteredMailApp\Command\UserMailInfoCommand;
+use RegisteredMailApp\Command\UserSendMailCommand;
+use RegisteredMailApp\Exception\ResourceNotFoundException;
+use RegisteredMailApp\Gateway\AR24\Impl\AttachmentGateway;
+use RegisteredMailApp\Gateway\AR24\Impl\RegisteredMailGateway;
+use RegisteredMailApp\Gateway\AR24\Impl\UserGateway;
+use RegisteredMailApp\Repository\Impl\ApiAccessRepository;
+use RegisteredMailApp\Repository\Impl\AttachmentRepository;
+use RegisteredMailApp\Repository\Impl\RegisteredMailRepository;
+use RegisteredMailApp\Repository\Impl\UserRepository;
+use RegisteredMailApp\Service\UserRegisteredMailService;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+
+set_time_limit(0);
+
+require __DIR__ .'/vendor/autoload.php';
+
+$apiAccessRepo = new ApiAccessRepository();
+try {
+    $apiAccessRepo->findAR24ApiAccess();
+} catch (ResourceNotFoundException $exception) {
+    if (empty($apiAccess)) {
+        $apiAccessRepo = $apiAccessRepo->saveAR24ApiAccess(
+            "57027783d6a71f2bf0a89afe7a7d5227e2f0b19b",
+            "58ef357e06af9ddb42eec4c1a77c9ac811a48b7a",
+            "https://sandbox.ar24.fr/api"
+        );
+    }
+}
+
+try {
+    $userRegisteredMailService = new UserRegisteredMailService(
+        new UserGateway($apiAccessRepo),
+        new AttachmentGateway($apiAccessRepo),
+        new RegisteredMailGateway($apiAccessRepo),
+        new UserRepository(),
+        new AttachmentRepository(),
+        new RegisteredMailRepository()
+    );
+
+    $commands = [
+        new CreateUserCommand($userRegisteredMailService),
+        new UserInfoCommand($userRegisteredMailService),
+        new UserListCommand($userRegisteredMailService),
+        new UserAttachmentCommand($userRegisteredMailService),
+        new UserSendMailCommand($userRegisteredMailService),
+        new UserMailInfoCommand($userRegisteredMailService),
+    ];
+} catch (Exception $exception) {
+
+}
+
+$input = new ArgvInput();
+$application = new Application();
+$application->addCommands($commands ?? []);
+$application->run($input);

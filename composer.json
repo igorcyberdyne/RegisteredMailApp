@@ -1,0 +1,22 @@
+{
+  "require": {
+    "php": ">=7.2",
+    "symfony/http-client": "*",
+    "symfony/filesystem": "^5.4",
+    "symfony/mime": "^5.4",
+    "symfony/console": "^5.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "RegisteredMailApp\\": "application/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "RegisteredMailApp\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "8.5.36"
+  }
+}
