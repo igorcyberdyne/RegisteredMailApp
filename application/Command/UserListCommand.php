@@ -45,7 +45,8 @@ class UserListCommand extends UserRegisteredMailCommand
     protected function configure(): void
     {
         $this
-            ->setHelp("This command help to {$this->getDescription()}");
+            ->setDescription("Permet de lister les utilisateurs créés")
+            ->setHelp("{$this->getDescription()}");
     }
 
 

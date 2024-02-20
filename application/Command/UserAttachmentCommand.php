@@ -50,7 +50,8 @@ class UserAttachmentCommand extends UserRegisteredMailCommand
     protected function configure(): void
     {
         $this
-            ->setHelp("This command help to {$this->getDescription()}");
+            ->setDescription("Permet d'ajouter une pièce jointe à un utilisateur existant")
+            ->setHelp("{$this->getDescription()}");
         $this
             ->addOption('id', null, InputOption::VALUE_REQUIRED, 'User ID ?')
             ->addOption('filename', null, InputOption::VALUE_REQUIRED, 'Path of file?');

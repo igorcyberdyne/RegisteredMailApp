@@ -54,7 +54,8 @@ class UserSendMailCommand extends UserRegisteredMailCommand
     protected function configure(): void
     {
         $this
-            ->setHelp("This command help to {$this->getDescription()}");
+            ->setDescription("Permet d'envoyer un courrier avec une pièce jointe")
+            ->setHelp("{$this->getDescription()}");
         $this
             ->addOption('id', "i", InputOption::VALUE_REQUIRED, "Sender's user ID")
             ->addOption('to_email', "e", InputOption::VALUE_REQUIRED, "Recipient's email")

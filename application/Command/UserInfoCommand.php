@@ -42,7 +42,8 @@ class UserInfoCommand extends UserRegisteredMailCommand
     protected function configure(): void
     {
         $this
-            ->setHelp("This command help to {$this->getDescription()}");
+            ->setDescription("Permet de récupérer des informations d'un utilisateur")
+            ->setHelp("{$this->getDescription()}");
         $this
             ->addOption('email', null, InputOption::VALUE_REQUIRED, 'User email to find ?')
             ->addOption('id', null, InputOption::VALUE_REQUIRED, 'User ID to find ?');

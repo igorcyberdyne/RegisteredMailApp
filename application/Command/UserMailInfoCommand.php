@@ -40,7 +40,8 @@ class UserMailInfoCommand extends UserRegisteredMailCommand
     protected function configure(): void
     {
         $this
-            ->setHelp("This command help to {$this->getDescription()}");
+            ->setDescription("Permet de récupérer des informations d'un courrier")
+            ->setHelp("{$this->getDescription()}");
         $this
             ->addOption('id', null, InputOption::VALUE_REQUIRED, 'Registered mail ID to find ?');
     }

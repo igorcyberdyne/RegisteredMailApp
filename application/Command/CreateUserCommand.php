@@ -40,7 +40,8 @@ class CreateUserCommand extends UserRegisteredMailCommand
     protected function configure(): void
     {
         $this
-            ->setHelp("This command help to {$this->getDescription()}");
+            ->setDescription("Permet de créer un utilisateur")
+            ->setHelp("{$this->getDescription()}");
     }
 
 
