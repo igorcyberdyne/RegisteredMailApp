@@ -49,10 +49,10 @@ try {
     $commands = [
         new CreateUserCommand($userRegisteredMailService),
         new UserInfoCommand($userRegisteredMailService),
-        new UserListCommand($userRegisteredMailService),
         new UserAttachmentCommand($userRegisteredMailService),
         new UserSendMailCommand($userRegisteredMailService),
         new UserMailInfoCommand($userRegisteredMailService),
+        new UserListCommand($userRegisteredMailService),
     ];
 } catch (Exception $exception) {
 
